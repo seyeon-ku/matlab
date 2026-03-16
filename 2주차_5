@@ -1,0 +1,8 @@
+x = 0:0.01:2;
+u = 3*log10(70*x + 1);
+figure
+plot(x, u), xlabel('x'), ylabel('u'),title('u = 3*log10(70*x + 1)')
+
+v = 4 * cos(7 * x);
+figure
+plot(x, v), xlabel('x'), ylabel('v'),title('v = 4 * cos(7 * x)')
