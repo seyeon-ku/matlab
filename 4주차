@@ -1,0 +1,73 @@
+문제 1번 
+x = 0: 0.01:4;
+plot(x, ksy_25010858_func_1(x))
+xlabel('x'), ylabel('y'), title('func_1');
+grid on
+a = fzero(@ksy_25010858_func_1, 0.5)
+b = fzero(@ksy_25010858_func_1, 1)
+fminbnd(@ksy_25010858_func_1, 0, 4);
+c = ksy_25010858_func_1(fminbnd(@ksy_25010858_func_1, 0, 4))
+함수는 [0, 4]에서 연속이므로 최소값은 0, 4 또는 기울기가 0인 지점에서 발생하고 그 중 그래프에서 보이듯이 x = 0.7101에서 가장 작은 값을 가진다는 것을 알 수 있다.
+문제 2
+t = ksy_25010858_func_2(100, 50, 9.81)
+물체가 상승하며 t1 = 2.7324일 때 h에 도달하고 하강하며 t2 = 2.7324일 떄에도 도달한다.
+문제 3
+global V;
+V = 10;
+[r_min, A_min] = fminbnd(@ksy_25010858_func_3b, 0.5, 10)
+h_min = (3 * V) / (pi * r_min.^2)
+r = 0.5:0.01:5;
+A = ksy_25010858_func_3b(r);
+plot(r, ksy_25010858_func_3b(r))
+xlabel('r'), ylabel('A'), title('func_3b(r)');
+new_A = 1.1 * A_min;
+
+valid_r = r(A <= new_A);
+
+r_low = min(valid_r)
+r_high = max(valid_r)
+그러므로 r은 1.4900에서 2.3300까지 변할 수 있다.
+문제 4
+ksy_25010858_func_4 = @(x)(10 * exp(-2*x));
+x_4 = 0:0.01:2;
+plot(x_4, ksy_25010858_func_4(x_4));
+xlabel('x_4'), ylabel('y'), title('func_4');
+문제 5
+ksy_25010858_func_5 = @(x)(30*x.^2-300*x+4);
+x_5 = 0:0.01:10;
+plot(x_5, ksy_25010858_func_5(x_5));
+xlabel('x_5'), ylabel('y'), title('func_5');
+min_5 = fminbnd(ksy_25010858_func_5, 4, 6)
+문제 6
+h_6 = @(x)(6 * exp(x));
+g_6 = @(x)(3 * cos(x));
+f_6 = @(x)(x.^2);
+ksy_25010858_func_6 = @(x)(h_6(g_6(f_6(x))));
+x_6 = 0:0.01:4;
+plot(x_6, ksy_25010858_func_6(x_6));
+xlabel('x_6'), ylabel('y'), title('func_6');
+
+function y = ksy_25010858_func_1(x)
+    y = 0.3*x - sin(2 * x);
+end
+
+function t = ksy_25010858_func_2(h, v_0, g)
+    D = v_0.^2 - 2*g*h;
+    if D < 0
+    end
+
+    t1 = (v_0 + sqrt(D))/g;
+    t2 = (v_0 - sqrt(D))/g;
+    t = [t1, t2];
+end
+
+function A1 = ksy_25010858_func_3a(r, V)
+A1 = pi * r * sqrt(r.^2 + (9*V.^2) ./ (pi).^2 * r .^ 4);
+end
+function A2 = ksy_25010858_func_3b(r);
+global V
+
+h = (3 * V) ./ (pi * r.^2);
+A2 = pi .* r .* sqrt(r.^2 + h .^ 2);
+
+end
