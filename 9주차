@@ -1,0 +1,180 @@
+1번
+x = 0:0.05:6*pi;
+y = sin(x) + 0.5 * cos(3*x);
+plot(x, y)
+xticks(0:pi:6*pi);
+xticklabels({'0' 'pi' '2pi' '3pi' '4pi' '5pi' '6pi'});
+title('y = sin(x) + 0.5cos(3x)');
+xlabel('x');
+ylabel('y');
+grid on;
+2번
+clc, clear;
+x = 1:50;
+y = 3.^x;
+subplot(1, 2, 1);
+plot(x, y)
+subplot(1, 2, 2);
+semilogy(x, y)
+plot 그래프는 로그 형태 그래프로 작은 값이 잘 보이지 않고, semilogy 그래프에서는 y에 로그를 취해 직선형태 그래프로 표현되었고 값들이 고르게 분포되어 증가 패턴을 알기 쉬워졌다.
+3번
+clc, clear, clf;
+data = load('score.dat');
+subplot(1, 2, 1);
+hist(data, 5)
+subplot(1, 2, 2);
+hist(data, 10)
+4번
+clc, clear, clf;
+f = @(x) sin(x).*exp(-0.1*x);
+fplot(f, [0, 10*pi])
+title('sin(x)e^-^0^.^1^x)');
+xlabel('x');
+ylabel('y');
+grid on;
+5번
+clc, clear;
+x = 0:0.1:10;
+y1 = x.^2;
+y2 = exp(0.5.*x);
+plotyy(x, y1, x, y2)
+title('y1 = x^2, y2 = e^(^0^.^5^x');
+xlabel('x');
+legend('x^2', 'e^(^0^.^5^x^)');
+y1 = x.^2는 다항함수로 x가 커질수록 y값이 증가하지만 y2 = exp(0.5.*x)는 지수함수로  x가 커질수록 다항함수보다 휠씬 가파르게 증가한다.
+6번
+clc, clear;
+t = 0:0.02:12*pi;
+x = (1 + 0.03.*t).*cos(t);
+y = (1 + 0.03.*t).*sin(t);
+z = 0.2.*t;
+plot3(x, y, z)
+title('x(t), y(t), z(t)');
+xlabel('x');
+ylabel('y');
+zlabel('z');
+grid on;
+7번
+clc, clear;
+x = -4:0.01:4;
+y = -4:0.01:4;
+[X, Y] = meshgrid(x, y);
+Z = X.^2 - Y.^2;
+mesh(X, Y, Z)
+xlabel('x');
+ylabel('y');
+zlabel('z');
+x = 0 단면에서 보면 z = -y^2으로 위로 볼록하고,  y = 0 단면에서 보면 z = x^2으로 아래로 볼록하기 때문에 그래프는 saddle surface 형태가 맞다.
+8번
+clc, clear;
+x = -2*pi:0.01:2*pi;
+y = -2*pi:0.01:2*pi;
+[X, Y] = meshgrid(x, y);
+Z = sin(X).*cos(Y);
+subplot(1, 2, 1);
+mesh(X, Y, Z)
+subplot(1, 2, 2);
+contour(X, Y, Z)
+contour 그래프는 3차원을 2차원 등고선 그래프로 보여준다.
+
+9번
+clc, clear, clf;
+t = 0:0.01:25;
+y = exp(-0.15.*t).*cos(4.*t);
+plot(t, y)
+hold on
+plot(t,exp(-0.15.*t))
+plot(t,-exp(-0.15.*t))
+hold off
+semilogy(t, abs(y))
+(c) |y(t)|여도 cos 함수 때문에 진동하므로 semilogy에서도 완전한 직선이 아니라 진동하며 감쇠하는 형태로 나타난다.
+
+10번
+clc, clear, clf;
+x = -6:0.01:6;
+y = -6:0.01:6;
+[X, Y] = meshgrid(x, y);
+Z = cos(X).*sin(Y).*exp(-0.05.*(X.^2 + Y.^2));
+mesh(X, Y, Z)
+contour(X, Y, Z)
+maxZ = max(Z(:))
+[r, c] = find(Z == maxZ)
+(c) 그러므로 z의 최댓값은 0.8939이고 위치는 Z(744, 601) 이다.
+
+11번
+clc, clear;
+t = 0:6;
+C = [12, 8.9, 6.6, 4.9, 3.6, 2.7, 2.0];
+plot(t, C)
+semilogy(t, C)
+logC = log(C);
+k = -(logC(end) - logC(1)) / (t(end) - t(1))
+12번
+clc, clear;
+n = 1:30;
+T1 = n;
+T2 = n.*log(n);
+T3 = n.^2;
+T4 = 2.^n;
+plot(n, T1, n, T2, n, T3, n, T4)
+legend('n','nlogn','n^2','2^n')
+semilogy(n, T1, n, T2, n, T3, n, T4)
+(c) 로그 스케일 그래프가 성장률 비교에 더 적합하다. 왜냐하면 T4 = 2^n 그래프의 스케일이 압도적으로 크기 때문에 나머지 함수가 거의 보이지 않기 때문이다. 
+
+16번
+clc, clear;
+t = 0:24;
+T = 15 + 10*sin(pi.*t/12);
+plot(t, T)
+hold on
+[maxT, maxidx] = max(T);
+[minT, minidx] = min(T);
+tmax = t(maxidx);
+tmin = t(minidx);
+
+plot(tmax, maxT, 'ro')
+plot(tmin, minT, 'bo')
+
+text(tmax, maxT, '  max')
+text(tmin, minT, '  min')
+hold off
+17번
+t = 0:20;
+v = 5*exp(-0.2.*t);
+plot(t, v)
+semilogy(t, v)
+(c) plot 그래프는 로그 형태이고 semilogy는 기울기가 일정한 직선 형태로 나타난다.
+18번
+clc, clear;
+A = [4 -1 2; 1 3 -1; 2 -2 5];
+b = [7; 4; 10];
+A^2
+A.^2
+detA = det(A)
+c1 = inv(A)*b
+c2 = A\b
+x = A\b
+(a) A^2는 A와 A를 행렬곱한 결과이고 A.^2는 A의 원소를 원소별로 제곱한 결과이다.
+(b) A의 행렬식이 0이 아니므로 역행렬이 존재한다.
+(c) inv(A).*b는 A의 역행렬을 직접 구한 뒤 b와 행연산을 한 것이고 A.\b는 직접 행 연산을 한 것이다. 과정은 다르나 같은 연산을 한 것이므로 결과는 같다.
+(d) x = [ x1; x2; x3] = [1.0462; 1.7332; 2.2791]이다.
+
+19번
+clc, clear;
+A = [2 -1; 3 4];
+B = [1 0 -2; 3 5 1];
+C = [6 -3 4; 15 14 -1];
+AX = C - B;
+X = A\(C - B)
+A*X + B
+(c) X = A\(C - B)와 행렬 C가 같기 때문에 계산한 X가 AX+B=C를 만족한다.
+(d) inv(A)*(C - B)는 A의 역행렬을 직접 계산한 후 곱하기 때문에 큰 행렬일수록 오차가 커질 수 있고 연산량도 많아지기 때문에  A\(C - B) 같은 오른쪽 나눗셈을 사용한다.
+
+20번
+clc, clear;
+X = [3 7 2 5; 5 9 4 6; 8 12 7 10; 10 15 9 13; 14 18 12 16];
+
+avg = mean(X)
+Xc = X - mean(X)
+S = Xc'*Xc
+(d) S의 대각원소는 해당 열의 분산이고, 비대각 원소는 두 열 사이의 공분산이다.
