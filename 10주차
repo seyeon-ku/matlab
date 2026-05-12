@@ -1,0 +1,150 @@
+1번
+t = 0:0.01:30;
+f = exp(-0.12*t).*sin(5*t) + 0.3 * cos(2*t);
+plot(t, f) %(a)
+hold on %(b)
+u = exp(-0.12*t) + 0.3;
+l = -exp(-0.12*t) - 0.3;
+plot(t, u, t, l)
+k = find(f(2:end-1) > f(1:end-2) & f(2:end-1) > f(3:end)) + 1; %(c)
+plot(t(k), f(k), 'o') %(d)
+hold off
+result = [t(k)' f(k)'] %(e)
+2번
+clc, clear;
+x = -5:0.05:5;
+y = -5:0.05:5;
+[X, Y] = meshgrid(x, y);
+Z = sin(X.*Y)./(1 + X.^2 + Y.^2); %(a)
+mesh(X, Y, Z) %(b)
+contour(X,Y,Z,25) %(c)
+[maxabsZ, idx] = max(abs(Z(:)));
+maxabsZ %(d)
+[r, c] = ind2sub(size(Z),idx); %(e)
+X(r, c)
+Y(r, c)
+3번
+clc, clear;
+A = [7 2 1; 2 6 -2; 1 -2 5];
+[V, D] = eig(A) %(a)
+D = diag(D) %(b)
+[maxD, maxD_idx]= max(D) %(c)
+v = V(:, maxD_idx) %(d)
+unit_v = v/norm(v) %(e)
+A*v - maxD*v %(f)
+(f) Av−λmaxv 는 영벡터에 가깝다.
+
+4번
+clc, clear;
+X = [2 5 1; 4 8 3; 6 11 7;9 15 10; 13 20 14];
+meanX = mean(X) %(a)
+X_c = X - mean(X) %(b)
+S = X_c'*X_c %(c)
+[v, d] = eig(S); 
+d = diag(d) %(d)
+[maxd,idx] = max(d);
+maxd %(e)
+maxv = v(:,idx) %(f)
+5번
+clc, clear;
+A = [5 2 -1; -2 6 3; 1 -1 7];
+b = [8; 5; 12]; %(a)
+x1 = inv(A)*b %(b)
+x2 = A\b %(c)
+x1 - x2 %(d)
+det(A) %(e)
+(e) A의 행렬식이 0이 아니므로 해가 유일하게 존재한다.
+
+6번
+clc, clear;
+x = -6:0.05:6;
+y = -6:0.05:6;
+[X, Y] = meshgrid(x, y);
+Z = exp(-0.08*(X.^2 + Y.^2)).*cos(3*X).*sin(2*Y); %(a)
+surf(X, Y, Z) %(b)
+contour(X,Y,Z,30) %(c)
+[maxZ, max_idx]= max(Z(:)); %(d)
+[minZ, min_idx] = min(Z(:)); 
+maxZ
+minZ
+[Mr, Mc] = ind2sub(size(Z), max_idx);
+[mr, mc] = ind2sub(size(Z), min_idx);
+x_max = X(Mr, Mc) %(e)
+y_max = Y(Mr, Mc)
+x_min = X(mr, mc)
+y_min = Y(mr, mc)
+7번
+clc, clear;
+n = [50,100 200, 400, 800, 1600];
+T = [14, 19, 30, 51, 92, 170];
+subplot(1, 3, 1); %(d)
+plot(n,T,'o-') %(a)
+title('plot(n,T)');
+subplot(1, 3, 2);
+semilogx(n,T,'o-') %(b)
+title('semilogx(n,T)');
+subplot(1, 3, 3);
+semilogy(n,T,'o-') %(c)
+title('semilogy(n,T)');
+(e) plot(n,T,'o-') (첫번째 그래프)
+
+8번
+clc, clear, clf;
+t=0 : 0.01 : 24;
+P = 50 + 18*sin(pi*t/12)+6*cos(pi*t/4);
+plot(t, P) %(a)
+hold on
+[maxP, idx1] = max(P);
+maxP %(b)
+maxP_t = t(idx1) %(c)
+[minP, idx2] = min(P);
+minP %(d)
+minP_t = t(idx2)
+plot(t(idx1), maxP, 'o') %(e)
+plot(t(idx2), minP, 'h')
+hold off
+9번
+clc, clear;
+X = [1 3 0;2 5 1; 4 8 3; 7 12 5; 11 17 9];
+x1 = X(:, 1); %(a)
+x2 = X(:, 2);
+x3 = X(:, 3);
+cos_t12 = dot(x1,x2)/(norm(x1)*norm(x2));
+theta12 = acosd(cos_t12) %(b)
+cos_t13 = dot(x1,x3)/(norm(x1)*norm(x3));
+theta13 = acosd(cos_t13) %(c)
+cos_t23 = dot(x2,x3)/(norm(x2)*norm(x3));
+theta23 = acosd(cos_t23)
+theta = [theta12, theta13, theta23] %(d)
+min_t = min(theta) %(e)
+fprintf('1, 3\n')
+10번
+clc, clear;
+A = [9, -2, -1; -2, 8, -3; -1, -3, 10]; %(a)
+b = [15; 7; 11];
+I = A\b %(b)
+det_A = det(A) %(c)
+abs_I = abs(I) %(d)
+[maxI, idx] = max(abs(I)) %(e)
+(c) det(A)가 0이 아니므로 가역행렬이다.
+11번
+clc, clear;
+t=0 : 0.01 : 40;
+y = exp(-0.04*t).*sin(4*t) + 0.6*sin(9*t);
+plot(t, y) %(a)
+hold on
+u = 1.6*exp(-0.04*t); %(b)
+l = -1.6*exp(-0.04*t);
+plot(t, u, t, l) %(c)
+hold off
+semilogy(t,abs(y)) %(d)
+u0 = 1.6*exp(-0.04*t(1)) %(e)
+u40 = 1.6*exp(-0.04*t(end))
+12번
+epoch = [1, 2, 5, 10, 20, 50, 100, 200];
+loss = [3.1, 2.4, 1.7, 1.2, 0.83, 0.36, 0.14, 0.06];
+plot(epoch,loss,'o-') %(a)
+semilogy(epoch,loss,'o-') %(b)
+r = loss(2:end)./loss(1:end - 1); %(c)
+meanr = mean(r) %(d)
+(e) 비율벡터 r의 평균 비율이 0.5902로 1보다 작으므로 loss가 전반적으로 감소한다.
